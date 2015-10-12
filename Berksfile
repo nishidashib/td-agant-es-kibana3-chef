@@ -1,0 +1,7 @@
+source 'https://supermarket.chef.io'
+#cookbook 'elasticsearch', git: 'https://github.com/elasticsearch/cookbook-elasticsearch.git'
+cookbook 'elasticsearch'
+cookbook 'td-agent', git: 'https://github.com/treasure-data/chef-td-agent.git'
+cookbook 'kibana', git: 'https://github.com/realityforge/chef-kibana.git'
+cookbook 'java'
+cookbook 'apache2', '~> 3.1.0'

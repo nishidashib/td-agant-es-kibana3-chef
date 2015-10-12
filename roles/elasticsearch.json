@@ -1,0 +1,13 @@
+{
+  "name": "elasticsearch",
+  "override_attributes": {
+    "java": {
+      "install_flavor": "openjdk",
+      "jdk_version": "7"
+    }
+  },
+  "run_list": [
+    "recipe[java]",
+    "recipe[elasticsearch]"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "kibana",
+  "override_attributes": {
+    "kibana": {
+      "base_dir": "/var/www/html"
+    }
+  },
+  "run_list": [
+    "recipe[kibana::kibana3]"
+  ]
+}

@@ -1,0 +1,39 @@
+DEPENDENCIES
+  elasticsearch
+    git: https://github.com/elasticsearch/cookbook-elasticsearch.git
+    revision: f4794e82e0b8634bf3c6b780bb7c428d1d32b63b
+  java
+  kibana
+    git: https://github.com/realityforge/chef-kibana.git
+    revision: 7f492fcb7b3a7c28f6abd68ba8c670c6040e8947
+  td-agent
+    git: https://github.com/treasure-data/chef-td-agent.git
+    revision: 143057ecd7bfb9122c73eaeaa210ec3647ed1c6c
+
+GRAPH
+  7-zip (1.0.2)
+    windows (>= 1.2.2)
+  apt (2.8.2)
+  ark (0.9.0)
+    7-zip (>= 0.0.0)
+    windows (>= 0.0.0)
+  build-essential (2.2.4)
+  chef-sugar (3.1.1)
+  chef_handler (1.2.0)
+  curl (2.0.1)
+  elasticsearch (1.0.3)
+    apt (>= 0.0.0)
+    ark (>= 0.0.0)
+    chef-sugar (>= 0.0.0)
+    curl (>= 0.0.0)
+    yum (>= 0.0.0)
+  java (1.35.0)
+  kibana (0.1.9)
+    ark (>= 0.0.0)
+    build-essential (>= 0.0.0)
+  td-agent (2.1.2)
+    apt (>= 0.0.0)
+    yum (>= 0.0.0)
+  windows (1.38.2)
+    chef_handler (>= 0.0.0)
+  yum (3.7.1)
