@@ -2,10 +2,18 @@
   "name": "kibana",
   "override_attributes": {
     "kibana": {
-      "base_dir": "/var/www/html"
-    }
+      "base_dir": "/var/www/html",
+	  "url" : "https://download.elasticsearch.org/kibana/kibana/kibana-3.0.0.tar.gz",
+      "user": "root",
+      "group": "root",
+	  "config" : {"source" : "config.js.erb"}
+    },
+	"apache":{
+		"default_site_enabled" : true
+	}
   },
   "run_list": [
+    "recipe[apache2]",
     "recipe[kibana::kibana3]"
   ]
 }

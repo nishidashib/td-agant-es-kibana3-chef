@@ -26,6 +26,18 @@
     "java": {
       "install_flavor": "openjdk",
       "jdk_version": "7"
+    },
+    "kibana": {
+      "base_dir": "/var/www/html",
+      "url": "https://download.elasticsearch.org/kibana/kibana/kibana-3.0.0.tar.gz",
+      "user": "root",
+      "group": "root",
+      "config": {
+        "source": "config.js.erb"
+      }
+    },
+    "apache": {
+      "default_site_enabled": true
     }
   },
   "normal": {
@@ -466,47 +478,279 @@
           "tar": "6f81935e270c403681e120ec4395c28b2ddc87e659ff7784608b86beb5223dd2"
         }
       }
+    },
+    "apache": {
+      "mpm": "event",
+      "version": "2.4",
+      "root_group": "root",
+      "default_site_name": "000-default",
+      "package": "apache2",
+      "perl_pkg": "perl",
+      "devel_package": "apache2-dev",
+      "apachectl": "/usr/sbin/apache2ctl",
+      "dir": "/etc/apache2",
+      "log_dir": "/var/log/apache2",
+      "error_log": "error.log",
+      "access_log": "access.log",
+      "user": "www-data",
+      "group": "www-data",
+      "binary": "/usr/sbin/apache2",
+      "conf_dir": "/etc/apache2",
+      "cgibin_dir": "/usr/lib/cgi-bin",
+      "icondir": "/usr/share/apache2/icons",
+      "cache_dir": "/var/cache/apache2",
+      "run_dir": "/var/run/apache2",
+      "lock_dir": "/var/lock/apache2",
+      "pid_file": "/var/run/apache2/apache2.pid",
+      "docroot_dir": "/var/www/html",
+      "lib_dir": "/usr/lib/apache2",
+      "build_dir": "/usr/share/apache2",
+      "libexec_dir": "/usr/lib/apache2/modules",
+      "service_name": "apache2",
+      "listen_addresses": [
+        "*"
+      ],
+      "listen_ports": [
+        "80"
+      ],
+      "contact": "ops@example.com",
+      "timeout": 300,
+      "keepalive": "On",
+      "keepaliverequests": 100,
+      "keepalivetimeout": 5,
+      "locale": "C",
+      "sysconfig_additional_params": {
+
+      },
+      "default_site_enabled": true,
+      "default_site_port": "80",
+      "access_file_name": ".htaccess",
+      "servertokens": "Prod",
+      "serversignature": "On",
+      "traceenable": "Off",
+      "allowed_openids": [
+
+      ],
+      "status_allow_list": "127.0.0.1 ::1",
+      "ext_status": false,
+      "info_allow_list": "127.0.0.1 ::1",
+      "mpm_support": [
+        "prefork",
+        "worker",
+        "event"
+      ],
+      "prefork": {
+        "startservers": 16,
+        "minspareservers": 16,
+        "maxspareservers": 32,
+        "serverlimit": 256,
+        "maxrequestworkers": 256,
+        "maxconnectionsperchild": 10000
+      },
+      "worker": {
+        "startservers": 4,
+        "serverlimit": 16,
+        "minsparethreads": 64,
+        "maxsparethreads": 192,
+        "threadlimit": 192,
+        "threadsperchild": 64,
+        "maxrequestworkers": 1024,
+        "maxconnectionsperchild": 0
+      },
+      "event": {
+        "startservers": 4,
+        "serverlimit": 16,
+        "minsparethreads": 64,
+        "maxsparethreads": 192,
+        "threadlimit": 192,
+        "threadsperchild": 64,
+        "maxrequestworkers": 1024,
+        "maxconnectionsperchild": 0
+      },
+      "proxy": {
+        "require": "all denied",
+        "order": "deny,allow",
+        "deny_from": "all",
+        "allow_from": "none"
+      },
+      "default_modules": [
+        "status",
+        "alias",
+        "auth_basic",
+        "authn_core",
+        "authn_file",
+        "authz_core",
+        "authz_groupfile",
+        "authz_host",
+        "authz_user",
+        "autoindex",
+        "dir",
+        "env",
+        "mime",
+        "negotiation",
+        "setenvif"
+      ],
+      "mod_auth_cas": {
+        "from_source": false,
+        "source_revision": "v1.0.8.1"
+      },
+      "mod_auth_openid": {
+        "ref": "v0.8",
+        "version": "0.8",
+        "source_url": "https://github.com/bmuller/mod_auth_openid/archive/v0.8.tar.gz",
+        "cache_dir": "/var/cache/mod_auth_openid",
+        "dblocation": "/var/cache/mod_auth_openid/mod_auth_openid.db",
+        "configure_flags": [
+
+        ]
+      },
+      "mod_fastcgi": {
+        "download_url": "http://www.fastcgi.com/dist/mod_fastcgi-current.tar.gz",
+        "install_method": "package"
+      },
+      "mod_php5": {
+        "install_method": "package",
+        "so_filename": "libphp5.so"
+      },
+      "mod_ssl": {
+        "port": 443,
+        "protocol": "All -SSLv2 -SSLv3",
+        "cipher_suite": "EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH+aRSA+RC4:EECDH:EDH+aRSA:RC4!aNULL!eNULL!LOW!3DES!MD5!EXP!PSK!SRP!DSS",
+        "honor_cipher_order": "On",
+        "insecure_renegotiation": "Off",
+        "strict_sni_vhost_check": "Off",
+        "session_cache": "shmcb:/var/run/apache2/ssl_scache",
+        "session_cache_timeout": 300,
+        "compression": "Off",
+        "use_stapling": "Off",
+        "stapling_responder_timeout": 5,
+        "stapling_return_responder_errors": "Off",
+        "stapling_cache": "shmcb:/var/run/ocsp(128000)",
+        "pass_phrase_dialog": "exec:/usr/share/apache2/ask-for-passphrase",
+        "mutex": "file:/var/run/apache2/ssl_mutex",
+        "directives": {
+
+        },
+        "pkg_name": "mod_ssl"
+      }
+    },
+    "apache2": {
+      "mod_pagespeed": {
+        "package_link": "https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb"
+      }
+    },
+    "build-essential": {
+      "compile_time": false
+    },
+    "kibana": {
+      "version": "2",
+      "kibana3_version": "3.0.0",
+      "kibana4_version": "4.1.1",
+      "base_dir": "/opt/kibana",
+      "user": "kibana",
+      "group": "kibana",
+      "install_method": "release",
+      "url": "https://download.elasticsearch.org/kibana/kibana/kibana-2-linux-x64.tar.gz",
+      "checksum": "df25bc0cc02385edcac446ef8cbd83b896cdc910a0fa1b0a7bd2a958164593a8",
+      "kibana4_checksum": "6f42d25f337fd49f38e2af81b9ab6e0c987a199a8c0b2e1410d072f812cb4520",
+      "git": {
+        "url": "https://github.com/rashidkpc/kibana2.git",
+        "reference": "v0.2.0"
+      },
+      "rubyversion": "1.9.1",
+      "interface": "127.0.0.1",
+      "port": 5601,
+      "elasticsearch": {
+        "hosts": [
+          "127.0.0.1"
+        ],
+        "port": 9200
+      },
+      "index": "kibana-int",
+      "default_fields": "[\"@message\"]",
+      "default_operator": "OR",
+      "config": {
+        "cookbook": null,
+        "source": null
+      },
+      "highlighted_field": "@message",
+      "primary_field": "@message",
+      "default_index": "@message",
+      "apache": {
+        "host": "vagrant.vm",
+        "interface": "10.0.2.15",
+        "basic_auth": "off",
+        "basic_auth_username": "admin",
+        "basic_auth_password": "PLEASEchangeme",
+        "port": 80,
+        "proxy": false,
+        "cookbook": "kibana"
+      },
+      "nginx": {
+        "port": 80,
+        "listen_http": 80,
+        "listen_https": 443,
+        "client_max_body": "50M",
+        "ssl": false,
+        "proxy": false,
+        "auth": false,
+        "ssl_certificate": null,
+        "ssl_certificate_key": null,
+        "ssl_protocols": "TLSv1 TLSv1.1 TLSv1.2",
+        "ssl_ciphers": "ECDHE-RSA-RC4-SHA:ECDHE-RSA-AES128-SHA:AES256-CGM-SHA256:ECDHE-RSA-AES256-SHA256:RC4:HIGH:!aNULL:!MD5:-LOW:-SSLv2:-EXP",
+        "ssl_session_cache": "shared:SSL:10m",
+        "ssl_session_timeout": "10m",
+        "server_name": "kibana",
+        "cookbook": "kibana"
+      },
+      "auth_file": "/etc/nginx/htpasswd.users",
+      "kibana_service": "http://127.0.0.1:5601",
+      "service": {
+        "source": "upstart.conf.erb",
+        "cookbook": "kibana"
+      },
+      "defaultapp": "discover"
     }
   },
   "automatic": {
     "memory": {
       "swap": {
-        "cached": "100kB",
+        "cached": "0kB",
         "total": "1048572kB",
-        "free": "1048424kB"
+        "free": "1048572kB"
       },
       "total": "1017836kB",
-      "free": "392512kB",
-      "buffers": "40948kB",
-      "cached": "315508kB",
-      "active": "362236kB",
-      "inactive": "156356kB",
+      "free": "221016kB",
+      "buffers": "61004kB",
+      "cached": "316532kB",
+      "active": "571540kB",
+      "inactive": "167260kB",
       "dirty": "84kB",
       "writeback": "0kB",
-      "anon_pages": "162076kB",
-      "mapped": "19240kB",
-      "slab": "86740kB",
-      "slab_reclaimable": "76588kB",
-      "slab_unreclaim": "10152kB",
-      "page_tables": "3712kB",
+      "anon_pages": "361276kB",
+      "mapped": "32708kB",
+      "slab": "36560kB",
+      "slab_reclaimable": "26368kB",
+      "slab_unreclaim": "10192kB",
+      "page_tables": "4832kB",
       "nfs_unstable": "0kB",
       "bounce": "0kB",
       "commit_limit": "1557488kB",
-      "committed_as": "314444kB",
+      "committed_as": "961488kB",
       "vmalloc_total": "34359738367kB",
-      "vmalloc_used": "10108kB",
+      "vmalloc_used": "10140kB",
       "vmalloc_chunk": "34359723004kB"
     },
     "filesystem2": {
       "by_device": {
         "/dev/mapper/vagrant--vg-root": {
           "kb_size": "19229144",
-          "kb_used": "2595792",
-          "kb_available": "15633520",
+          "kb_used": "2610912",
+          "kb_available": "15618400",
           "percent_used": "15%",
           "total_inodes": "1229744",
-          "inodes_used": "96927",
-          "inodes_available": "1132817",
+          "inodes_used": "98182",
+          "inodes_available": "1131562",
           "inodes_percent_used": "8%",
           "fs_type": "ext4",
           "mount_options": [
@@ -568,12 +812,12 @@
         },
         "tmpfs": {
           "kb_size": "101784",
-          "kb_used": "392",
-          "kb_available": "101392",
+          "kb_used": "380",
+          "kb_available": "101404",
           "percent_used": "1%",
           "total_inodes": "127229",
-          "inodes_used": "364",
-          "inodes_available": "126865",
+          "inodes_used": "362",
+          "inodes_available": "126867",
           "inodes_percent_used": "1%",
           "fs_type": "tmpfs",
           "mount_options": [
@@ -607,8 +851,8 @@
         },
         "vagrant": {
           "kb_size": "487184384",
-          "kb_used": "191452284",
-          "kb_available": "295732100",
+          "kb_used": "191676404",
+          "kb_available": "295507980",
           "percent_used": "40%",
           "total_inodes": "1000",
           "inodes_used": "0",
@@ -740,12 +984,12 @@
       "by_mountpoint": {
         "/": {
           "kb_size": "19229144",
-          "kb_used": "2595792",
-          "kb_available": "15633520",
+          "kb_used": "2610912",
+          "kb_available": "15618400",
           "percent_used": "15%",
           "total_inodes": "1229744",
-          "inodes_used": "96927",
-          "inodes_available": "1132817",
+          "inodes_used": "98182",
+          "inodes_available": "1131562",
           "inodes_percent_used": "8%",
           "fs_type": "rootfs",
           "mount_options": [
@@ -794,12 +1038,12 @@
         },
         "/run": {
           "kb_size": "101784",
-          "kb_used": "392",
-          "kb_available": "101392",
+          "kb_used": "380",
+          "kb_available": "101404",
           "percent_used": "1%",
           "total_inodes": "127229",
-          "inodes_used": "364",
-          "inodes_available": "126865",
+          "inodes_used": "362",
+          "inodes_available": "126867",
           "inodes_percent_used": "1%",
           "fs_type": "tmpfs",
           "mount_options": [
@@ -895,8 +1139,8 @@
         },
         "/vagrant": {
           "kb_size": "487184384",
-          "kb_used": "191452284",
-          "kb_available": "295732100",
+          "kb_used": "191676404",
+          "kb_available": "295507980",
           "percent_used": "40%",
           "total_inodes": "1000",
           "inodes_used": "0",
@@ -1125,13 +1369,13 @@
         "/dev/mapper/vagrant--vg-root,/": {
           "device": "/dev/mapper/vagrant--vg-root",
           "kb_size": "19229144",
-          "kb_used": "2595792",
-          "kb_available": "15633520",
+          "kb_used": "2610912",
+          "kb_available": "15618400",
           "percent_used": "15%",
           "mount": "/",
           "total_inodes": "1229744",
-          "inodes_used": "96927",
-          "inodes_available": "1132817",
+          "inodes_used": "98182",
+          "inodes_available": "1131562",
           "inodes_percent_used": "8%",
           "fs_type": "ext4",
           "mount_options": [
@@ -1176,13 +1420,13 @@
         "tmpfs,/run": {
           "device": "tmpfs",
           "kb_size": "101784",
-          "kb_used": "392",
-          "kb_available": "101392",
+          "kb_used": "380",
+          "kb_available": "101404",
           "percent_used": "1%",
           "mount": "/run",
           "total_inodes": "127229",
-          "inodes_used": "364",
-          "inodes_available": "126865",
+          "inodes_used": "362",
+          "inodes_available": "126867",
           "inodes_percent_used": "1%",
           "fs_type": "tmpfs",
           "mount_options": [
@@ -1272,8 +1516,8 @@
         "vagrant,/vagrant": {
           "device": "vagrant",
           "kb_size": "487184384",
-          "kb_used": "191452284",
-          "kb_available": "295732100",
+          "kb_used": "191676404",
+          "kb_available": "295507980",
           "percent_used": "40%",
           "mount": "/vagrant",
           "total_inodes": "1000",
@@ -1518,7 +1762,7 @@
         "model": "58",
         "model_name": "Intel(R) Core(TM) i7-3615QM CPU @ 2.30GHz",
         "stepping": "9",
-        "mhz": "2294.740",
+        "mhz": "2294.870",
         "cache_size": "6144 KB",
         "physical_id": "0",
         "core_id": "0",
@@ -1742,15 +1986,15 @@
         "interfaces": {
           "lo": {
             "rx": {
-              "bytes": "4812596",
-              "packets": "2248",
+              "bytes": "2094864",
+              "packets": "881",
               "errors": "0",
               "drop": "0",
               "overrun": "0"
             },
             "tx": {
-              "bytes": "4812596",
-              "packets": "2248",
+              "bytes": "2094864",
+              "packets": "881",
               "errors": "0",
               "drop": "0",
               "carrier": "0",
@@ -1760,16 +2004,16 @@
           "eth0": {
             "tx": {
               "queuelen": "1000",
-              "bytes": "1272335",
-              "packets": "17791",
+              "bytes": "297555",
+              "packets": "2310",
               "errors": "0",
               "drop": "0",
               "carrier": "0",
               "collisions": "0"
             },
             "rx": {
-              "bytes": "112367880",
-              "packets": "81734",
+              "bytes": "276153",
+              "packets": "3177",
               "errors": "0",
               "drop": "0",
               "overrun": "0"
@@ -1778,16 +2022,16 @@
           "eth1": {
             "tx": {
               "queuelen": "1000",
-              "bytes": "2003899",
-              "packets": "10122",
+              "bytes": "3132433",
+              "packets": "12364",
               "errors": "0",
               "drop": "0",
               "carrier": "0",
               "collisions": "0"
             },
             "rx": {
-              "bytes": "5184399",
-              "packets": "12365",
+              "bytes": "2652904",
+              "packets": "13063",
               "errors": "0",
               "drop": "0",
               "overrun": "0"
@@ -1830,6 +2074,10 @@
       "machine": "x86_64",
       "os": "GNU/Linux",
       "modules": {
+        "vboxsf": {
+          "size": "43786",
+          "refcount": "1"
+        },
         "xt_addrtype": {
           "size": "12635",
           "refcount": "2"
@@ -1894,10 +2142,6 @@
           "size": "202783",
           "refcount": "0"
         },
-        "vboxsf": {
-          "size": "43786",
-          "refcount": "1"
-        },
         "dm_crypt": {
           "size": "23177",
           "refcount": "0"
@@ -1958,13 +2202,13 @@
           "size": "14951",
           "refcount": "1"
         },
-        "joydev": {
-          "size": "17381",
-          "refcount": "0"
-        },
         "glue_helper": {
           "size": "13990",
           "refcount": "1"
+        },
+        "joydev": {
+          "size": "17381",
+          "refcount": "0"
         },
         "ablk_helper": {
           "size": "13597",
@@ -1978,13 +2222,13 @@
           "size": "12658",
           "refcount": "0"
         },
-        "drm": {
-          "size": "303102",
-          "refcount": "1"
-        },
         "i2c_piix4": {
           "size": "22155",
           "refcount": "0"
+        },
+        "drm": {
+          "size": "303102",
+          "refcount": "1"
         },
         "vboxguest": {
           "size": "248675",
@@ -1994,12 +2238,12 @@
           "size": "106714",
           "refcount": "0"
         },
-        "serio_raw": {
-          "size": "13462",
-          "refcount": "0"
-        },
         "mac_hid": {
           "size": "13205",
+          "refcount": "0"
+        },
+        "serio_raw": {
+          "size": "13462",
           "refcount": "0"
         },
         "lp": {
@@ -2034,13 +2278,13 @@
     "filesystem": {
       "/dev/mapper/vagrant--vg-root": {
         "kb_size": "19229144",
-        "kb_used": "2595792",
-        "kb_available": "15633520",
+        "kb_used": "2610912",
+        "kb_available": "15618400",
         "percent_used": "15%",
         "mount": "/",
         "total_inodes": "1229744",
-        "inodes_used": "96927",
-        "inodes_available": "1132817",
+        "inodes_used": "98182",
+        "inodes_available": "1131562",
         "inodes_percent_used": "8%",
         "fs_type": "ext4",
         "mount_options": [
@@ -2082,13 +2326,13 @@
       },
       "tmpfs": {
         "kb_size": "101784",
-        "kb_used": "392",
-        "kb_available": "101392",
+        "kb_used": "380",
+        "kb_available": "101404",
         "percent_used": "1%",
         "mount": "/run",
         "total_inodes": "127229",
-        "inodes_used": "364",
-        "inodes_available": "126865",
+        "inodes_used": "362",
+        "inodes_available": "126867",
         "inodes_percent_used": "1%",
         "fs_type": "tmpfs",
         "mount_options": [
@@ -2117,8 +2361,8 @@
       },
       "vagrant": {
         "kb_size": "487184384",
-        "kb_used": "191452284",
-        "kb_available": "295732100",
+        "kb_used": "191676404",
+        "kb_available": "295507980",
         "percent_used": "40%",
         "mount": "/vagrant",
         "total_inodes": "1000",
@@ -2528,7 +2772,7 @@
         "string_2": "vboxRev_103037"
       }
     },
-    "ohai_time": 1444639058.6445675,
+    "ohai_time": 1444744863.6933153,
     "chef_packages": {
       "chef": {
         "version": "12.5.1",
@@ -2554,10 +2798,10 @@
         "host_ed25519_public": "AAAAC3NzaC1lZDI1NTE5AAAAIJb/jGu82sMkZhVodF5xiLrH8i30NdFNPidwlTzWTRz1"
       }
     },
-    "uptime_seconds": 7606,
-    "uptime": "2 hours 06 minutes 46 seconds",
-    "idletime_seconds": 7312,
-    "idletime": "2 hours 01 minutes 52 seconds",
+    "uptime_seconds": 1264,
+    "uptime": "21 minutes 04 seconds",
+    "idletime_seconds": 1144,
+    "idletime": "19 minutes 04 seconds",
     "cloud_v2": null,
     "etc": {
       "passwd": {
@@ -3095,6 +3339,12 @@
           "members": [
 
           ]
+        },
+        "ssl-cert": {
+          "gid": 113,
+          "members": [
+
+          ]
         }
       }
     },
@@ -3110,12 +3360,34 @@
       "java::default",
       "elasticsearch",
       "elasticsearch::default",
+      "apache2",
+      "apache2::default",
+      "kibana::kibana3",
       "java::set_attributes_from_version",
       "java::openjdk",
       "java::default_java_symlink",
       "java::set_java_home",
       "chef-sugar::default",
       "curl::default",
+      "apache2::mpm_event",
+      "apache2::mod_status",
+      "apache2::mod_alias",
+      "apache2::mod_auth_basic",
+      "apache2::mod_authn_core",
+      "apache2::mod_authn_file",
+      "apache2::mod_authz_core",
+      "apache2::mod_authz_groupfile",
+      "apache2::mod_authz_host",
+      "apache2::mod_authz_user",
+      "apache2::mod_autoindex",
+      "apache2::mod_dir",
+      "apache2::mod_env",
+      "apache2::mod_mime",
+      "apache2::mod_negotiation",
+      "apache2::mod_setenvif",
+      "apache2::mod_rewrite",
+      "apache2::mod_deflate",
+      "apache2::mod_headers",
       "ark::default"
     ],
     "expanded_run_list": [
@@ -3125,11 +3397,14 @@
       "td-agent::rewrite_tag_filter",
       "td-agent::es_access",
       "java::default",
-      "elasticsearch::default"
+      "elasticsearch::default",
+      "apache2::default",
+      "kibana::kibana3"
     ],
     "roles": [
       "td-agent",
-      "elasticsearch"
+      "elasticsearch",
+      "kibana"
     ],
     "cookbooks": {
       "td-agent": {
@@ -3140,6 +3415,12 @@
       },
       "elasticsearch": {
         "version": "1.0.3"
+      },
+      "apache2": {
+        "version": "3.1.0"
+      },
+      "kibana": {
+        "version": "0.1.9"
       },
       "apt": {
         "version": "2.8.2"
@@ -3155,6 +3436,9 @@
       },
       "ark": {
         "version": "0.9.0"
+      },
+      "build-essential": {
+        "version": "2.2.4"
       },
       "windows": {
         "version": "1.38.2"
