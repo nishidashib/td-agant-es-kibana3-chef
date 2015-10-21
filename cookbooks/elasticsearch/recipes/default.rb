@@ -22,6 +22,41 @@ elasticsearch_service 'elasticsearch'
 # by default, no plugins
 elasticsearch_plugin 'mobz/elasticsearch-head' do
 end
+bash 'injecting template' do
+  code <<-EOF
+curl -XPUT http://localhost:9200/_template/apache -d '
+{
+        "template":"apache-*",
+        "mappings":{
+                "apache-access":{
+                        "properties":{
+                                "agent":{
+                                        "index":"not_analyzed",
+                                        "type":"string"
+                                },
+                                "fullurl":{
+                                        "index":"not_analyzed",
+                                        "type":"string"
+                                },
+                                "host":{
+                                        "index":"not_analyzed",
+                                        "type":"string"
+                                },
+                                "contents":{
+                                        "index":"not_analyzed",
+                                        "type":"string"
+                                },
+                                "hostname":{
+                                        "index":"not_analyzed",
+                                        "type":"string"
+                                }
+                        }
+                }
+        }
+}
+'
+  EOF
+end
 
 service 'elasticsearch' do
 	action :restart
