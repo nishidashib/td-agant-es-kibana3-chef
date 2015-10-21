@@ -2,7 +2,7 @@
   "name": "td-agent",
   "override_attributes": {
     "td_agent": {
-      "version": "2.2.1",
+      "version": "2.2.1-0",
       "includes": true,
       "default_config": false,
       "plugins": [
