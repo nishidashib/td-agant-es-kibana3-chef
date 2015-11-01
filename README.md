@@ -51,5 +51,5 @@ $ exit
 ```
 knife zero converge  'name:{{node名}}' -x vagrant -i {{秘密鍵}} --attribute knife_zero.host
 ```
-###nodeで下記にアクセスできたら成功。
+###下記にアクセスできたら成功。
 http://{nodeのipアドレス}/kibana
