@@ -30,5 +30,6 @@
     "recipe[td-agent::record_reformer_access]",
     "recipe[td-agent::rewrite_tag_filter]",
     "recipe[td-agent::es_access]"
+    "recipe[td-agent::service]"
   ]
 }
