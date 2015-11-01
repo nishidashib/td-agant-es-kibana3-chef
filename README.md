@@ -1,9 +1,9 @@
 #td-agent-es-kibana3-chef
 
-##debian系のlinuxしかテストしてません。。
-redhat、widowsもテストしておきます。
+##debian系のlinux、ubuntu14.04でしかまだテストしてません。
+redhat、windowsもまたテストしておきます。
 
-vagrantやdockerなりで仮想環境つくって試してみてください。
+vagrantやdockerなりで、ubuntu14.04の仮想環境つくって試してみてください。
 
 ###ホストOSにchef,chef-zero,knife-zeroをinstallした状態にしておく。
 ```
@@ -52,4 +52,6 @@ $ exit
 knife zero converge  'name:{{node名}}' -x vagrant -i {{秘密鍵}} --attribute knife_zero.host
 ```
 ###下記にアクセスできたら成功。
+```
 http://{nodeのipアドレス}/kibana
+```
